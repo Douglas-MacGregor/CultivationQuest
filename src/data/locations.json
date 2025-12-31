@@ -1,0 +1,8 @@
+{
+    "riverside village": {
+        "description": "A quaint village by the river, known for its fishing and friendly locals.",
+        "qi types" : ["Water", "Wood"],
+        "region level" : 1,
+        "region type" : "village"
+    }
+}

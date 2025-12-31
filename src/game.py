@@ -1,12 +1,13 @@
 
+from .world.world import World
+from .entities.player import PlayerFactory
+
 class Game:
     def __init__(self):
-        pass
+        self.world = None
+        self.player = None
 
     def train(self):
-        pass
-
-    def explore(self):
         pass
 
     def explore(self):

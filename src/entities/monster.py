@@ -1,9 +1,9 @@
 import json
+from abstract_entity import AbstractEntity , Stats
 
-class Monster:
-    def __init__(self, name, level):
-        self.name = name
-        self.level = level
+class Monster(AbstractEntity):
+    def __init__(self, name, stats: Stats):
+        super().__init__(name, stats)
 
 class MonsterFactory:
     def __init__(self, json_path):
@@ -11,5 +11,5 @@ class MonsterFactory:
             data = json.load(f)
         self.templates = data["monster_templates"]
 
-    def create_monster(self, template_name):
+    def create_monster(self, template_name = None):
         pass
