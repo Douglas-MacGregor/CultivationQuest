@@ -15,22 +15,23 @@ class Qi(Enum):
     POISON = "poison" # Represents toxic, corrupting energy
     SPATIAL = "spatial" # Represents dimensional, space-bending energy
     TEMPORAL = "temporal" # Represents time-manipulating energy
+    WIND = "wind" # Represents swift, free-flowing energy
 
 class SpiritRoots(Enum):
-    BLOCKED = auto()
-    WEAK = auto()
-    AVERAGE = auto()
-    STRONG = auto()
-    LEGENDARY = auto()
-    PURE = auto() 
+    BLOCKED = "blocked"
+    WEAK = "weak"
+    AVERAGE = "average"
+    STRONG = "strong"
+    PERFECT = "perfect"
+    TRANSENDENT = "transendent"
 
 class BodyConstitution(Enum):
-    FRAGILE = auto()
-    WEAK = auto()
-    AVERAGE = auto()
-    STRONG = auto()
-    IRON_WILLED = auto()
-    TITANIC = auto()
+    FRAGILE = "fragile"
+    WEAK = "weak"
+    AVERAGE = "average"
+    STRONG = "strong"
+    ROBUST = "robust"
+    TITANIC = "titanic"
 
 class CultivationStage(Enum):
     MORTAL = "mortal"
@@ -38,6 +39,7 @@ class CultivationStage(Enum):
     CORE_FORMATION = "core formation"
     NASCENT_SOUL = "nascent soul"
     MONARCH = "monarch"
+
     
 
 

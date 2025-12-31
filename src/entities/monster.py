@@ -1,5 +1,5 @@
 import json
-from abstract_entity import AbstractEntity , Stats
+from .abstract_entity import AbstractEntity , Stats
 
 class Monster(AbstractEntity):
     def __init__(self, name, stats: Stats):

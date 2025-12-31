@@ -1,6 +1,7 @@
 from ..entities.monster import MonsterFactory
 from ..entities.npc import NPCFactory
 from .location import LocationFactory 
+from ..entities.player import Player
 
 class World:
     def __init__(self, location_factory, starting_location_name, monster_factory, npc_factory):

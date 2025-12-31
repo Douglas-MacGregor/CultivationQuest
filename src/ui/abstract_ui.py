@@ -26,16 +26,6 @@ class UIInterface(ABC):
         """
         pass
     
-    @abstractmethod
-    def go(self) -> None:
-        """
-        Begin or continue the game flow.
-        
-        This method should start the main game sequence or continue
-        from where it was paused. It handles the primary game loop
-        and user interactions.
-        """
-        pass
     
     @abstractmethod
     def quit(self) -> None:

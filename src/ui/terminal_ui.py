@@ -1,56 +1,40 @@
 from .abstract_ui import UIInterface
+import os
+
+
 
 class TerminalUI(UIInterface):
     def __init__(self):
         self.running = True
-        self.current_screen = "main"
 
     def run(self, game):
-        while self.running and game.state.player.alive:
-            if self.current_screen == "main":
-                self.main_menu(game)
-
-            elif self.current_screen == "training":
-                self.training_menu(game)
-
-            elif self.current_screen == "explore":
-                self.explore_menu(game)
-
-            elif self.current_screen == "events":
-                self.event_screen(game)
-
-            elif self.current_screen == "status":
-                self.status_screen(game)
-
-            elif self.current_screen == "settings":
-                self.settings_menu(game)
-
-            elif self.current_screen == "start":
-                self.start_menu(game)
-
-    def go(self, screen_name):
-        self.current_screen = screen_name
+        while self.running:
+            if game.events:
+                current_event = game.events.pop(0)
+                name, description, actions = current_event.trigger()
+                print(f"\n=== {name} ===")
+                print(description)
+                for idx, action in enumerate(actions, 1):
+                    print(f"{idx}. {action}")
+                choice = input("Choose an action: ")
+                try:
+                    action_idx = int(choice) - 1
+                    if 0 <= action_idx < len(actions):
+                        selected_action = actions[action_idx]
+                        current_event.resolve(selected_action, game)
+                    else:
+                        print("Invalid choice. Please try again.")
+                        game.events.insert(0, current_event)  # Re-add the event
+                except ValueError:
+                    print("Please enter a number corresponding to your choice.")
+                    game.events.insert(0, current_event)  # Re-add the event
+                self.clear()
+            else:
+                print("No events to process. Exiting UI.")
+                self.quit()
 
     def quit(self):
         self.running = False
 
-    def main_menu(self, game):
-        pass
-
-    def training_menu(self, game):
-        pass
-
-    def explore_menu(self, game):
-        pass
-
-    def event_screen(self, game):
-        pass
-
-    def status_screen(self, game):
-        pass
-
-    def settings_menu(self, game):
-        pass
-
-    def start_menu(self, game):
-        pass
+    def clear(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
