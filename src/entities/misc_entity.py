@@ -7,7 +7,7 @@ def create_human_mortal_basic_stats():
     stats = Stats({
         "qi": choice([0,1,2]),
         "health": 10,
-        "qi type": Qi.NEAUTRAL,
+        "qi core type": "unformed",
         "spirit": 0,
         "cultivation realm": CultivationStage.MORTAL,
         "cultivation stage": choice([0, 1]),

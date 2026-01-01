@@ -7,7 +7,7 @@ class Stats:
     def __init__(self, stats):
         self.qi = stats.get("qi", 0)
         self.health = stats.get("health", 10)
-        self.qi_type = stats["qi type"]
+        self.qi_core_type = stats["qi core type"]
         self.spirit = stats.get("spirit", 0)
         self.cultivation_realm = stats.get("cultivation realm", CultivationStage.MORTAL)
         self.cultivation_stage = stats.get("cultivation stage", 0)
@@ -45,21 +45,23 @@ class AbstractEntity(ABC):
 
     @abstractmethod
     def charactersheet(self):
-        sheet = f"Character Sheet:\n"
-        sheet += f"Name: {self.name}\n"
-        sheet += f"Race: {self.stats.race}\n"
-        sheet += f"Background: {self.stats.background}\n"
-        sheet += f"Qi Type: {self.stats.qi_type.value}\n"
-        sheet += f"Cultivation Stage: {self.stats.cultivation_realm.value} (Stage {self.stats.cultivation_stage})\n"
-        sheet += f"Spirit Roots: {self.stats.spirit_roots.name.lower()}\n"
-        sheet += f"Body Constitution: {self.stats.body_constitution.name.lower()}\n"
-        sheet += f"Age: {self.stats.age['year']} years and {self.stats.age['day']} days\n"
-        sheet += f"Max Qi: {self.info['max qi']}\n"
-        sheet += f"Current Qi: {self.stats.qi}\n"
-        sheet += f"Max Health: {self.info['max health']}\n"
-        sheet += f"Current Health: {self.stats.health}\n"
-        sheet += f"Mind State: {self.info['mind state']}\n"
-        return sheet
+        top_five = sorted(self.stats.qi_aspects.items(), key=lambda x: x[1], reverse=True)[:5]
+        info = (f"Name: {self.name}\n"
+        f"Age: {self.stats.age['year']} years and {self.stats.age['day']} days\n"
+        f"Location: {self.stats.background}\n"
+        f"Qi: {self.stats.qi}/{self.info['max qi']}  Health: {self.stats.health}/{self.info['max health']}\n"
+        f"Mental State: {self.info['mind state']}\n"
+        f"Cultivation Stage: {self.stats.cultivation_realm.value} (stage {self.stats.cultivation_stage})\n"
+        f"Spirit Roots: {self.stats.spirit_roots.name.lower()}\n"
+        f"Body Constitution: {self.stats.body_constitution.name.lower()}\n"
+        f"Qi Aspects:\n"
+        f"{top_five[0][0].value.title()}: {top_five[0][1]*100:.1f}%\n"
+        f"{top_five[1][0].value.title()}: {top_five[1][1]*100:.1f}%\n" 
+        f"{top_five[2][0].value.title()}: {top_five[2][1]*100:.1f}%\n"
+        f"{top_five[3][0].value.title()}: {top_five[3][1]*100:.1f}%\n"
+        f"{top_five[4][0].value.title()}: {top_five[4][1]*100:.1f}%\n"
+        f"Qi Core Type: {self.stats.qi_core_type}\n")
+        return info
 
     @abstractmethod
     def description(self):

@@ -1,4 +1,5 @@
 from .abstract_event import Event
+from .main_event import MainLoopEvent
 from ..game import Game
 from ..entities.misc_entity import create_human_mortal_basic_stats
 from ..entities.player import Player
@@ -28,16 +29,23 @@ class CharacterCreationEvent(Event):
     def __init__(self, game):
         name = "Character Creation"
         game.player.get_info()
-        description = f"{game.player.charactersheet()}\nCreate your character by entering a name and selecting attributes."
-        actions = ["Enter Name", "Back to Start Screen"]
+        info = f"{game.player.charactersheet()}"
+        description = self.box_text(info)
+        description += "\n"
+        description +="Create your character by selecting a name, improving attributes and choosing a background."
+        actions = ["Select Name","Roll Character", "Back to Start Screen"]
         super().__init__(name, description, actions)
 
     def trigger(self):
         return (self.name, self.description, self.actions)
 
     def resolve(self, action, game):
-        if action == "Enter Name":
+        if action == "Select Name":
             game.add_event(NameEntryEvent(game))
+        elif action == "Roll Character":
+            game.player = Player(name="New Player", stats=create_human_mortal_basic_stats())
+            game.player.get_info()
+            game.add_event(CharacterCreationEvent(game))
         elif action == "Back to Start Screen":
             game.add_event(StartScreenEvent(game))
             game.player = None
@@ -63,7 +71,9 @@ class LoadScreenEvent(Event):
 class NameEntryEvent(Event):
     def __init__(self, game):
         name = "Name Entry"
-        description = "Please select your character's name:"
+        description = self.box_text(game.player.charactersheet())
+        description += "\n"
+        description +="Please select your character's name:"
         actions = [
             "Wei Chen",
             "Li Na",
@@ -90,7 +100,9 @@ class NameEntryEvent(Event):
 class AttributeSelectionEvent(Event):
     def __init__(self, game):
         name = "Attribute Selection"
-        description = f"You have {game.core.get("attribute upgrade points", 0)} attribute upgrade points to spend. Choose an attribute to upgrade:"
+        description = self.box_text(game.player.charactersheet())
+        description += "\n"
+        description += f"You have {game.core.get("attribute upgrade points", 0)} attribute upgrade points to spend. Choose an attribute to upgrade:"
         actions = ["Body Constitution", "Cultivation Stage", "Spirit Roots"]
         super().__init__(name, description, actions)
 
@@ -117,7 +129,9 @@ class AttributeSelectionEvent(Event):
 class BackgroundSelectionEvent(Event):
     def __init__(self, game):
         name = "Background Selection"
-        description = "Select a background for your character:"
+        description = self.box_text(game.player.charactersheet())
+        description += "\n"
+        description += "Select a background for your character:"
         actions = game.core.get("backgrounds unlocked", ["riverside village", "island port"])
         actions.append("Back to Start Screen")
         super().__init__(name, description, actions)
@@ -134,22 +148,3 @@ class BackgroundSelectionEvent(Event):
         Backgrounds[action.upper().replace(" ", "_")].value.apply_background_effects(game.player, game)
         game.add_event(MainLoopEvent(game))
 
-class MainLoopEvent(Event):
-    def __init__(self, game):
-        name = "Main Game Loop"
-        description = "You are in the main game loop. Choose your next action."
-        actions = ["Explore", "View Character Sheet", "Save Game", "Quit"]
-        super().__init__(name, description, actions)
-
-    def trigger(self):
-        return (self.name, self.description, self.actions)
-
-    def resolve(self, action, game: Game):
-        if action == "Explore":
-            pass  # Implement exploration logic
-        elif action == "View Character Sheet":
-            pass
-        elif action == "Save Game":
-            pass  # Implement save game logic
-        elif action == "Quit":
-            game.ui.quit()
