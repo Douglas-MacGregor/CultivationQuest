@@ -1,0 +1,8 @@
+{
+    "npc_templates": {
+        "villager": {
+            "name": "Village Elder",
+            "description": "A wise old villager who knows the local area well."
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "monster_templates": {
+        "forest_wolf": {
+            "name": "Forest Wolf",
+            "description": "A wild wolf that roams the forest."
+        }
+    }
+}

@@ -4,7 +4,7 @@ from ..game import Game
 class MainLoopEvent(Event):
     def __init__(self, game):
         name = "Main Game Loop"
-        description = self.box_text(game.player.charactersheet())
+        description = self.box_text(game.player.charactersheet(game.world.current_location))
         description += "\n"
         description += "Choose an action to proceed."
         actions = ["Explore", "Meditate", "Train", "Travel" ,"View Full Character Sheet" ,"Save Game", "Quit"]

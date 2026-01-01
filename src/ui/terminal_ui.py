@@ -14,21 +14,37 @@ class TerminalUI(UIInterface):
                 name, description, actions = current_event.trigger()
                 print(f"\n=== {name} ===")
                 print(description)
+
+                # --- NEW BEHAVIOUR: No actions => allow any input ---
+                if len(actions) == 0:
+                    choice = input("Enter action: ")
+                    current_event.resolve(choice, game)
+                    self.clear()
+                    continue
+                # -----------------------------------------------------
+
                 for idx, action in enumerate(actions, 1):
                     print(f"{idx}. {action}")
+
                 choice = input("Choose an action: ")
                 try:
                     action_idx = int(choice) - 1
                     if 0 <= action_idx < len(actions):
                         selected_action = actions[action_idx]
-                        current_event.resolve(selected_action, game)
+                        try:
+                            current_event.resolve(selected_action, game)
+                        except Exception as e:
+                            print(f"ERROR: {e}")
+                            game.events.insert(0, current_event)  # Re-add the event
                     else:
                         print("Invalid choice. Please try again.")
                         game.events.insert(0, current_event)  # Re-add the event
                 except ValueError:
                     print("Please enter a number corresponding to your choice.")
                     game.events.insert(0, current_event)  # Re-add the event
+
                 self.clear()
+
             else:
                 print("No events to process. Exiting UI.")
                 self.quit()

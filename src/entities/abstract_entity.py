@@ -44,22 +44,23 @@ class AbstractEntity(ABC):
         self.is_player_flag = False
 
     @abstractmethod
-    def charactersheet(self):
+    def charactersheet(self, location):
+        total = sum(self.stats.qi_aspects.values())
         top_five = sorted(self.stats.qi_aspects.items(), key=lambda x: x[1], reverse=True)[:5]
         info = (f"Name: {self.name}\n"
         f"Age: {self.stats.age['year']} years and {self.stats.age['day']} days\n"
-        f"Location: {self.stats.background}\n"
+        f"Location: {location.name}\n"
         f"Qi: {self.stats.qi}/{self.info['max qi']}  Health: {self.stats.health}/{self.info['max health']}\n"
         f"Mental State: {self.info['mind state']}\n"
         f"Cultivation Stage: {self.stats.cultivation_realm.value} (stage {self.stats.cultivation_stage})\n"
         f"Spirit Roots: {self.stats.spirit_roots.name.lower()}\n"
         f"Body Constitution: {self.stats.body_constitution.name.lower()}\n"
         f"Qi Aspects:\n"
-        f"{top_five[0][0].value.title()}: {top_five[0][1]*100:.1f}%\n"
-        f"{top_five[1][0].value.title()}: {top_five[1][1]*100:.1f}%\n" 
-        f"{top_five[2][0].value.title()}: {top_five[2][1]*100:.1f}%\n"
-        f"{top_five[3][0].value.title()}: {top_five[3][1]*100:.1f}%\n"
-        f"{top_five[4][0].value.title()}: {top_five[4][1]*100:.1f}%\n"
+        f"{top_five[0][0].value.title()}: {(top_five[0][1]/total)*100:.1f}%\n"
+        f"{top_five[1][0].value.title()}: {(top_five[1][1]/total)*100:.1f}%\n" 
+        f"{top_five[2][0].value.title()}: {(top_five[2][1]/total)*100:.1f}%\n"
+        f"{top_five[3][0].value.title()}: {(top_five[3][1]/total)*100:.1f}%\n"
+        f"{top_five[4][0].value.title()}: {(top_five[4][1]/total)*100:.1f}%\n"
         f"Qi Core Type: {self.stats.qi_core_type}\n")
         return info
 

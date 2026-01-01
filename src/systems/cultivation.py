@@ -24,7 +24,7 @@ class SpiritRoots(Enum):
     AVERAGE = auto()
     STRONG = auto()
     PERFECT = auto()
-    TRANSENDENT = auto()
+    DIVINE = auto()
 
 class BodyConstitution(Enum):
     FRAGILE = auto()

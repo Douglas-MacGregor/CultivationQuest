@@ -4,10 +4,10 @@ from .location import LocationFactory
 from ..entities.player import Player
 
 class World:
-    def __init__(self, location_factory, starting_location_name, monster_factory, npc_factory):
-        self.year = 7
-        self.day = 0
+    def __init__(self, location_factory, monster_factory, npc_factory):
         self.location_factory = location_factory
         self.monster_factory = monster_factory
         self.npc_factory = npc_factory
-        self.current_location = self.location_factory.create_location(starting_location_name, None)
+        self.current_location = None
+
+    

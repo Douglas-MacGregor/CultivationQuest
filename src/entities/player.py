@@ -25,8 +25,8 @@ class Player(AbstractEntity):
     def cultivate(self, length):
         pass
 
-    def charactersheet(self):
-        return super().charactersheet()
+    def charactersheet(self, location):
+        return super().charactersheet(location=location)
 
     def is_player(self):
         return True

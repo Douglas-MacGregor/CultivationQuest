@@ -37,12 +37,17 @@ class Game:
     def load_game(self, file_path):
         pass
 
-    def start_new_game(player_name, location_json, monster_json, npc_json):
-        pass
-
     def clear_events(self):
         self.events = []
 
     def add_event(self, event):
         self.events.append(event)
+
+    def create_world(self):
+        self.world = World(
+            location_factory=LocationFactory("src/data/locations.json"),
+            monster_factory=MonsterFactory("src/data/monsters.json"),
+            npc_factory=NPCFactory("src/data/npcs.json")
+        )
+        self.world.current_location = self.world.location_factory.create_location("starting village", world=self.world)
 

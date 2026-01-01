@@ -1,8 +1,37 @@
 {
     "riverside village": {
+        "name": "Riverside Village",
         "description": "A quaint village by the river, known for its fishing and friendly locals.",
-        "qi types" : ["Water", "Wood"],
-        "region level" : 1,
-        "region type" : "village"
+        "qi_aspects" : {
+            "water": 0.2,
+            "earth": 0.3,
+            "wood": 0.2,
+            "neutral": 0.3
+        },
+        "qi_density" : 0.01,
+        "region_type": "village"
+    }, 
+    "island port": {
+        "name": "Island Port",
+        "description": "A bustling port town on a small island, famous for its trade and exotic goods.",
+        "qi_aspects" : {
+            "water": 0.4,
+            "wind": 0.3,
+            "metal": 0.1,
+            "neutral": 0.2
+        },
+        "qi_density" : 0.02,
+        "region_type": "village"
+    },
+    "starting village": {
+        "name": "Starting Village",
+        "description": "A small, peaceful village surrounded by nature, where your journey begins.",
+        "qi_aspects" : {
+            "earth": 0.4,
+            "wood": 0.4,
+            "neutral": 0.2
+        },
+        "qi_density" : 0.015,
+        "region_type": "village"
     }
 }
