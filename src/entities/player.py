@@ -5,6 +5,7 @@ from .misc_entity import calculate_human_info
 class Player(AbstractEntity):
     def __init__(self, name, stats : Stats):
         super().__init__(name, stats)
+        self.is_player_flag = True
 
     def get_info(self):
         self.info = calculate_human_info(self.stats)
@@ -26,6 +27,9 @@ class Player(AbstractEntity):
 
     def charactersheet(self):
         return super().charactersheet()
+
+    def is_player(self):
+        return True
     
     
 class PlayerFactory:
