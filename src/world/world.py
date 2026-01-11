@@ -9,5 +9,9 @@ class World:
         self.monster_factory = monster_factory
         self.npc_factory = npc_factory
         self.current_location = None
+        self.world_event_queue = []
+        
 
+    def add_world_event(self, event):
+        self.world_event_queue.append(event)
     

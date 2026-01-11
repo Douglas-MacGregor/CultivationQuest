@@ -35,7 +35,6 @@ class TerminalUI(UIInterface):
                             current_event.resolve(selected_action, game)
                         except Exception as e:
                             print(f"ERROR: {e}")
-                            game.events.insert(0, current_event)  # Re-add the event
                     else:
                         print("Invalid choice. Please try again.")
                         game.events.insert(0, current_event)  # Re-add the event

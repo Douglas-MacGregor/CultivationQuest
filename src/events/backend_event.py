@@ -31,9 +31,7 @@ class CharacterCreationEvent(Event):
     def __init__(self, game):
         name = "Character Creation"
         game.player.get_info()
-        # Create a starting location for character display
-        location = game.world.location_factory.create_location("starting village", world=game.world)
-        info = f"{game.player.charactersheet(location)}"
+        info = f"{game.player.charactersheet(location=game.world.current_location)}"
         description = self.box_text(info)
         description += "\n"
         description +="Create your character by selecting a name, improving attributes and choosing a background."

@@ -54,6 +54,20 @@ class IslandPortBackground(Background):
             entity.stats.spirit_roots = SpiritRoots(min(entity.stats.spirit_roots.value + 1, SpiritRoots.STRONG.value))
             entity.stats.spirit += 0.25
 
+class StartingVillageBackground(Background):
+    def __init__(self):
+        super().__init__("starting village", "The peaceful village where your journey begins.")
+
+    def apply_background_effects(self, entity, game : Game):
+        if entity.is_player():
+            entity.stats.background = "starting village"
+            background_location = game.world.location_factory.create_location("starting village", game.world)
+            game.world.current_location = background_location
+            game.world.current_location.enter(entity, game)
+        else:
+            entity.stats.background = "starting village"
+
 class Backgrounds(Enum):
     RIVERSIDE_VILLAGE = RiversideVillageBackground()
     ISLAND_PORT = IslandPortBackground()
+    STARTING_VILLAGE = StartingVillageBackground()

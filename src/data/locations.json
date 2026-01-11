@@ -27,9 +27,7 @@
         "name": "Starting Village",
         "description": "A small, peaceful village surrounded by nature, where your journey begins.",
         "qi_aspects" : {
-            "earth": 0.4,
-            "wood": 0.4,
-            "neutral": 0.2
+            "neutral": 0.1
         },
         "qi_density" : 0.015,
         "region_type": "village"
